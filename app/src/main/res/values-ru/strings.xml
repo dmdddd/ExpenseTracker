@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">Доходы и расходы</string>
+    <string name="title_activity_target_showing">Доходы и расходы</string>
+    <string name="title_activity_show_target">Доходы и расходы</string>
+    <!--Main Activity-->
+    <string name="choose_target">Выберите тему</string>
+    <string name="new_name">Новое имя</string>
+    <string name="add_target">Добавить тему</string>
+    <!--TargetShowingActivity button navigation menu-->
+    <string name="title_home">Главная</string>
+    <string name="title_piechart">Диаграмма</string>
+    <string name="title_settings">Настройки</string>
+    <!--Target specific menu-->
+    <string name="rename">Переименовывать</string>
+    <string name="remove">Удалить</string>
+    <!--FragmentTargetSettings-->
+    <string name="settings">Настройки</string>
+    <string name="currency">Валюта</string>
+    <string name="save">Сохранить</string>
+    <string name="name">Название</string>
+    <string name="chart_color">Цвет диаграммы</string>
+    <!--CategoryShowingFragment-->
+    <string name="total">Всего: </string>
+    <string name="add_category">Добавить категорию</string>
+    <string name="specify_category_name">Укажите название категории</string>
+    <string name="no_name_given">Название не указано</string>
+    <!--popupMenu-->
+    <string name="confirm">Да</string>
+    <string name="cancel">Отменить</string>
+    <!--ShowPaymentsInCategory-->
+    <string name="remove_category">Удалить категорию</string>
+    <string name="add_expense">Добавлять расход</string>
+    <!--Popup menu prompts-->
+    <string name="expense_deleting_warrning">Вы действительно хотите удалить этот расход?</string>
+    <string name="category_deleting_warrning">Вы действительно хотите удалить эту категорию, и все ее расходы?</string>
+    <string name="target_deleting_warrning">Вы действительно хотите удалить эту тему?</string>
+    <string name="edit">Редактировать</string>
+
+    <!--AddTargetActivity-->
+    <string name="target">Тема</string>
+    <string name="default_currency">Валюта</string>
+    <string name="common_categories">Категории</string>
+    <string name="food">Питание</string>
+    <string name="gas">Бензин</string>
+    <string name="shopping">Шопинг</string>
+    <string name="drinks">Напитки</string>
+    <string name="accommodation">Жилье</string>
+    <string name="add">Добавить</string>
+    <!--ShowPaymentInCategory-->
+    <string name="no_expenses_added">Не было добавлено никаких расходов.</string>
+    <!--Add/Edit Expense-->
+    <string name="amount">Сумма</string>
+    <string name="amount_hint">Сколько?</string>
+    <string name="date">Дата</string>
+    <string name="date_hint">Необязательно</string>
+    <string name="details">Подробности</string>
+    <string name="details_hint">Заметки</string>
+    <string name="no_amount_given">Сумма не указана</string>
+    <string name="adding_to">Добавляем к</string>
+    <string name="editing">Редактируем расход в</string>
+    <string name="in">в</string>
+    <string name="no_details_were_given">Нет дополнительной информации.</string>
+    <!--EditExpenseActivity-->
+    <string name="nothing_to_update">Ничего обновлять</string>
+
+</resources>

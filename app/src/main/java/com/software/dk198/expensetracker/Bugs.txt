@@ -1,0 +1,4 @@
+Known bugs:
+After renaming a category using the settings fragment, the name doesn't change in the targetview
+
+ToDo - Add no categories to display(like in no expenses have been added)

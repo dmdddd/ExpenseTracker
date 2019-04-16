@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">Expense Tracker</string>
+    <string name="title_activity_target_showing">Expense Tracker</string>
+    <string name="title_activity_show_target">Expense Tracker</string>
+    <!--Main Activity-->
+    <string name="choose_target">Choose a subject</string>
+    <string name="new_name">New name</string>
+    <string name="add_target">Add subject</string>
+    <!--TargetShowingActivity button navigation menu-->
+    <string name="title_home">Home</string>
+    <string name="title_piechart">Piechart</string>
+    <string name="title_settings">Settings</string>
+    <!--Target specific menu-->
+    <string name="rename">Rename</string>
+    <string name="remove">Remove</string>
+    <!--FragmentTargetSettings-->
+    <string name="settings">Settings</string>
+    <string name="currency">Currency</string>
+    <string name="save">Save</string>
+    <string name="name">Name</string>
+    <string name="chart_color">Chart color</string>
+    <!--CategoryShowingFragment-->
+    <string name="total">Total: </string>
+    <string name="add_category">Add category</string>
+    <string name="specify_category_name">Specify category name</string>
+    <string name="no_name_given">No name has been given</string>
+    <!--popupMenu-->
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <!--ShowPaymentsInCategory-->
+    <string name="remove_category">remove category</string>
+    <string name="add_expense">add expense</string>
+    <!--Popup menu prompts-->
+    <string name="expense_deleting_warrning">Are you sure you want to remove this expense?</string>
+    <string name="category_deleting_warrning">Are you sure you want to delete the category and all its payments?</string>
+    <string name="target_deleting_warrning">Are you sure you want to delete this subject?</string>
+    <string name="edit">Edit</string>
+    <!--AddTargetActivity-->
+    <string name="target">Subject name</string>
+    <string name="default_currency">Default currency</string>
+    <string name="common_categories">Common categories</string>
+    <string name="food">Food</string>
+    <string name="gas">Gas</string>
+    <string name="shopping">Shopping</string>
+    <string name="drinks">Drinks</string>
+    <string name="accommodation">Accommodation</string>
+    <string name="add">Add</string>
+    <!--ShowPaymentInCategory-->
+    <!--ShowPaymentInCategory-->
+    <string name="no_expenses_added">No expenses have been added.</string>
+    <!--Add/Edit Expense-->
+    <string name="amount">Amount</string>
+    <string name="amount_hint">How much?</string>
+    <string name="date">Date</string>
+    <string name="date_hint">Optional</string>
+    <string name="details">Details</string>
+    <string name="details_hint">Notes</string>
+    <string name="no_amount_given">No Amount has been given</string>
+    <string name="adding_to">Adding to</string>
+    <string name="editing">Editing expense under</string>
+    <string name="in">in</string>
+    <string name="no_details_were_given">No additional info.</string>
+    <!--EditExpenseActivity-->
+    <string name="nothing_to_update">Nothing to update</string>
+</resources>

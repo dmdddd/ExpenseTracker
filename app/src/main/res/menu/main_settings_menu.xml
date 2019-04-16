@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="English"
+        android:id="@+id/eng"></item>
+    <item
+        android:title="Russian"
+        android:id="@+id/rus"></item>
+    <!--<item-->
+        <!--android:title="Import"-->
+        <!--android:id="@+id/import_db"></item>-->
+    <!--<item-->
+        <!--android:title="Export"-->
+        <!--android:id="@+id/export_db"></item>-->
+</menu>
