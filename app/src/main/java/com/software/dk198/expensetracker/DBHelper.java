@@ -83,6 +83,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
     }
+    public DBHelper(Context context, String db_name) { super(context, db_name , null, 1); }
     public DBHelper(Context context, int version) {
         super(context, DATABASE_NAME , null, version);
     }
@@ -121,6 +122,14 @@ public class DBHelper extends SQLiteOpenHelper {
         String[] columnNames = result.getColumnNames();
         return columnNames;
     }
+
+    // Needed to get the database ready for import
+    public void checkpoint(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res =  db.rawQuery("pragma wal_checkpoint;", null);
+        res.moveToFirst();
+    }
+
 // ------------------------------- Helpful functions - TARGET ----------------------------------
 
     public Target insertTarget (String target_name, String default_currency) {
@@ -132,6 +141,27 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_TARGET_NAME, target_name);
         contentValues.put(COLUMN_TARGET_TOTAL_SPENT, 0);
         contentValues.put(COLUMN_TARGET_DEFAULT_CURRENCY, default_currency);
+        contentValues.put(COLUMN_TARGET_CHART_COLOR, target.getPieChartColor());
+
+        // Insert the data to the table
+        int insertID = (int)(db.insert(TARGETS_TABLE, null, contentValues));
+        Cursor result =  db.query( TARGETS_TABLE, targetAllColumns, COLUMN_TARGET_ID + " = " + insertID, null, null, null, null);
+        result.moveToFirst();
+        Target newTarget = cursorToTarget(result);
+        result.close();
+
+        return newTarget;
+    }
+
+    // Used during database import
+    public Target insertTarget(Target taget_to_insert) {
+        Target target = new Target();   // To get the default pie chart color, which is stated in the target class
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        // Fill contentValues with the data
+        contentValues.put(COLUMN_TARGET_NAME, taget_to_insert.getName());
+        contentValues.put(COLUMN_TARGET_TOTAL_SPENT, taget_to_insert.getTotalSpendings());
+        contentValues.put(COLUMN_TARGET_DEFAULT_CURRENCY, taget_to_insert.getDefault_currency());
         contentValues.put(COLUMN_TARGET_CHART_COLOR, target.getPieChartColor());
 
         // Insert the data to the table
@@ -203,6 +233,7 @@ public class DBHelper extends SQLiteOpenHelper {
             }
         }
         result.close();
+        Log.d(TAG, "Targets loaded: " + target_list.size());
         return target_list;
     }
 
@@ -374,6 +405,23 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(COLUMN_TARGET_ID, target.getId());
         contentValues.put(COLUMN_CATEGORY_NAME, category_name);
         contentValues.put(COLUMN_SPENT_IN_CATEGORY, 0);
+        // Insert the data to the table
+        int insertID = (int) (db.insert(CATEGORIES_TABLE, null, contentValues));
+        Cursor result = db.query(CATEGORIES_TABLE, categoriesAllColumns, COLUMN_CATEGORY_ID + " = " + insertID, null, null, null, null);
+        result.moveToFirst();
+        SpendingCategory category = cursorToSpendingCategory(result);
+        result.close();
+
+        return category;
+    }
+
+    public SpendingCategory addSpendingCategoryToTarget_by_id(int target_id, SpendingCategory category_to_add) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        // Fill contentValues with the data
+        contentValues.put(COLUMN_TARGET_ID, target_id);
+        contentValues.put(COLUMN_CATEGORY_NAME, category_to_add.getCategory_name());
+        contentValues.put(COLUMN_SPENT_IN_CATEGORY, category_to_add.getSpent_in_category());
         // Insert the data to the table
         int insertID = (int) (db.insert(CATEGORIES_TABLE, null, contentValues));
         Cursor result = db.query(CATEGORIES_TABLE, categoriesAllColumns, COLUMN_CATEGORY_ID + " = " + insertID, null, null, null, null);

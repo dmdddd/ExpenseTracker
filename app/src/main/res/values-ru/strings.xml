@@ -6,6 +6,9 @@
     <string name="choose_target">Выберите тему</string>
     <string name="new_name">Новое имя</string>
     <string name="add_target">Добавить тему</string>
+    <string name="language">Языки</string>
+    <string name="_choose_language">Выберите язык</string>
+    <string name="backup">Backup</string>
     <!--TargetShowingActivity button navigation menu-->
     <string name="title_home">Главная</string>
     <string name="title_piechart">Диаграмма</string>
@@ -62,5 +65,16 @@
     <string name="no_details_were_given">Нет дополнительной информации.</string>
     <!--EditExpenseActivity-->
     <string name="nothing_to_update">Ничего обновлять</string>
+    <!--Backup Activity-->
+    <string name="import_data">Import</string>
+    <string name="import_msg">Importing is done from /Documents/ExpenseTracker/</string>
+    <string name="import_note">Existing data will not be overwritten, imported data will be added to the existing one</string>
+    <string name="export_data">Export</string>
+    <string name="export_share_data">Export and share</string>
+    <string name="export_msg">The backup file will be saved at /Documents/ExpenseTracker/</string>
 
+
+    <!--TargetsForImport Activity-->
+    <string name="import_all">Import All</string>
+    <string name="choosing_targets_from">Choosing targets from</string>
 </resources>

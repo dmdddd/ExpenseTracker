@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@android:drawable/ic_menu_sort_by_size"
+        android:icon="@drawable/ic_home_black_36dp"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_piechart"
-        android:icon="@android:drawable/ic_menu_compass"
+        android:icon="@drawable/ic_pie_chart_black_36dp"
         android:title="@string/title_piechart" />
 
     <item
         android:id="@+id/navigation_target_settings"
-        android:icon="@android:drawable/ic_menu_manage"
+        android:icon="@drawable/ic_settings_black_36dp"
         android:title="@string/title_settings" />
 
 </menu>

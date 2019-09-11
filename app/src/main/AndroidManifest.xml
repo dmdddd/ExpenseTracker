@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.software.dk198.expensetracker">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/main_icon"
@@ -9,6 +12,12 @@
         android:roundIcon="@mipmap/main_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".DataBackup.ImportTargetSelection"
+            android:label="@string/title_activity_import_target_selection"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".DataBackup.TargetsForImport" />
+        <activity android:name=".DataBackup.ChoosingBackupFileActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,8 +30,8 @@
         <activity android:name=".Expenses.ShowPaymentsInCategoryActivity" />
         <activity android:name=".Expenses.ExpenseShowingActivity" />
         <activity android:name=".Expenses.AddExpenseToCategoryActivity" />
-        <activity android:name=".Expenses.EditExpenseActivity"></activity>
+        <activity android:name=".Expenses.EditExpenseActivity" />
+        <activity android:name=".DataBackup.BackupActivity" />
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 </manifest>

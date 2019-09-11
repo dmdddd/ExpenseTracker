@@ -1,6 +1,5 @@
 package com.software.dk198.expensetracker.Targets;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -47,7 +45,7 @@ public class TargetAdapter extends RecyclerView.Adapter<TargetAdapter.ViewHolder
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            nameTextView = (TextView) itemView.findViewById(R.id.target_name);
+            nameTextView = (TextView) itemView.findViewById(R.id.targetName);
             buttonViewOption = (TextView) itemView.findViewById(R.id.textViewOptions);
             cardView = (CardView) itemView.findViewById(R.id.card_view);
             this.context = context;

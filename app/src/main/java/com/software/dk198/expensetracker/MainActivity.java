@@ -1,6 +1,7 @@
 package com.software.dk198.expensetracker;
 
-import android.content.ActivityNotFoundException;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -20,29 +21,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.utils.Utils;
 import com.software.dk198.expensetracker.Expenses.Expense;
 import com.software.dk198.expensetracker.SpendingCategories.SpendingCategory;
 import com.software.dk198.expensetracker.Targets.AddTargetActivity;
-import com.software.dk198.expensetracker.Targets.CategoriesShowingFragment;
 import com.software.dk198.expensetracker.Targets.Target;
 import com.software.dk198.expensetracker.Targets.TargetAdapter;
+import com.software.dk198.expensetracker.DataBackup.BackupActivity;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.URI;
 import java.nio.channels.FileChannel;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
@@ -113,26 +106,54 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int item_id = item.getItemId();
         switch(item_id){
-            case R.id.eng:
-                MainActivity.language = "en";
-                database.changeLanguage("en");
-                // restarting the activity for the language changes to take place
-                finish();
-                startActivity(getIntent());
+            case R.id.language:
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+                //TODO - undo hard coded
+                mBuilder.setTitle(getString(R.string._choose_language));
+                final String[] languages = { "English", "Russian"};
+                mBuilder.setSingleChoiceItems(languages, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String selected_lang = languages[i];
+                        switch (selected_lang){
+                            case "English":
+                                MainActivity.language = "en";
+                                database.changeLanguage("en");
+                                // restarting the activity for the language changes to take place
+                                finish();
+                                startActivity(getIntent());
+                                break;
+                            case "Russian":
+                                MainActivity.language = "ru";
+                                database.changeLanguage("ru");
+                                // restarting the activity for the language changes to take place
+                                finish();
+                                startActivity(getIntent());
+                                break;
+                        }
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+
+
+//                MainActivity.language = "ru";
+//                database.changeLanguage("ru");
+//                // restarting the activity for the language changes to take place
+//                finish();
+//                startActivity(getIntent());
                 break;
-            case R.id.rus:
-                MainActivity.language = "ru";
-                database.changeLanguage("ru");
-                // restarting the activity for the language changes to take place
-                finish();
-                startActivity(getIntent());
+            case R.id.backup:
+                Intent intent = new Intent(MainActivity.this, BackupActivity.class);
+                startActivity(intent);
                 break;
-//            case R.id.import_db:
-//                import_data();
-//                break;
-//            case R.id.export_db:
-//                export_data();
-//                break;
+            case R.id.import_db:
+                import_data();
+                break;
+            case R.id.export_db:
+                export_data();
+                break;
         }
         return true;
     }
@@ -190,19 +211,84 @@ public class MainActivity extends AppCompatActivity {
     }
 
     boolean import_data(){
-        Toast.makeText(MainActivity.this, "Import", Toast.LENGTH_SHORT).show();
+        File directory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "ExpenseTracker");
+        Log.d("Files", "Path: " + directory.getAbsolutePath());
 
+        ArrayList<String> file_names = new ArrayList<String>();
 
-        Intent intent = new Intent();
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        // Set your required file type
-        intent.setType("*/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "DEMO"),1001);
+        File[] files = directory.listFiles();
+        Log.d("Files", "Size: "+ files.length);
+        for (int i = 0; i < files.length; i++)
+        {
+            file_names.add(files[i].getName());
+            Log.d("Files", "FileName:" + files[i].getName());
+        }
+        Log.d("Files", "FileName:" + file_names.toString());
+        final String[] files_ = file_names.toArray(new String[0]);
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        mBuilder.setTitle("Choose an item");
+        mBuilder.setSingleChoiceItems(files_, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String chosen_path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/ExpenseTracker/" + files_[i];
 
+                String state = Environment.getExternalStorageState();
+                if (Environment.MEDIA_MOUNTED.equals(state)) {
+                    String file_name = files_[i];
 
-        //copyFile()
+                    File db_file_to_import_from = new File(getDatabasePath(database.DATABASE_NAME).getParent(), file_name);
+                    try {
+                        Log.d("BLABLA", "Writting allowed");
+                        // Open your local db as the input stream
+                        InputStream myInput = new FileInputStream(chosen_path);
 
+                        // Open the empty db as the output stream
+                        OutputStream myOutput = new FileOutputStream(db_file_to_import_from);
+
+                        // transfer bytes from the input file to the output file
+                        byte[] buffer = new byte[1024];
+                        int length;
+                        while ((length = myInput.read(buffer)) > 0) {
+                            myOutput.write(buffer, 0, length);
+                        }
+                        // Close the streams
+                        myOutput.flush();
+                        myOutput.close();
+                        myInput.close();
+
+                        // Opening the import database
+                        DBHelper import_db = new DBHelper(MainActivity.this, file_name);
+                        // Importing all the targets
+                        ArrayList<Target> import_targets =  import_db.getAllTargets();
+                        int target_counter = 0;
+                        for (Target target: import_targets) {
+                            // Adding each target
+                            Target added_tartget = database.insertTarget(target);
+                            // Getting and adding it's spending categories
+                            ArrayList<SpendingCategory> categories_for_target = import_db.getDifferentCategoriesOfTarget(target);
+                            for (SpendingCategory category: categories_for_target) {
+                                SpendingCategory added_category = database.addSpendingCategoryToTarget_by_id(added_tartget.getId(), category);
+
+                                ArrayList<Expense> expenses_of_target_in_category = import_db.getExpensesByTargetIdAndCategoryId(target.getId(), category.getCategory_id());
+                                for (Expense expense: expenses_of_target_in_category) {
+                                    database.insertExpense(added_tartget.getId(), added_category.getCategory_id(), expense.getAmount(), expense.getDate(), expense.getDetails());
+                                }
+                            }
+                        }
+                        Toast.makeText(MainActivity.this, "Databse updated", Toast.LENGTH_LONG).show();
+                        dialogInterface.dismiss();
+                        finish();
+                        startActivity(getIntent());
+                    }
+                    catch (IOException e) {
+                        Log.e("Exception", "File write failed: " + e.toString());
+                    }
+                }
+            }
+        });
+
+        AlertDialog mDialog = mBuilder.create();
+        mDialog.show();
         return true;
     }
 
@@ -241,18 +327,18 @@ public class MainActivity extends AppCompatActivity {
 //                        Static.getSharedPreference(MainActivity.this).edit()
 //                                .putInt("DB_VERSION", Utils.Version.GetVersion()).commit();
 
-
-                        Uri path = Uri.fromFile(db_file);
-                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                        // set the type to 'email'
-                        emailIntent .setType("vnd.android.cursor.dir/email");
-                        String to[] = {""};
-                        emailIntent .putExtra(Intent.EXTRA_EMAIL, to);
-                        // the attachment
-                        emailIntent .putExtra(Intent.EXTRA_STREAM, path);
-                        // the mail subject
-                        emailIntent .putExtra(Intent.EXTRA_SUBJECT, "Database export");
-                        startActivity(Intent.createChooser(emailIntent , "Send email..."));
+//////// Disabled sending mail for now
+//                        Uri path = Uri.fromFile(db_file);
+//                        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+//                        // set the type to 'email'
+//                        emailIntent .setType("vnd.android.cursor.dir/email");
+//                        String to[] = {""};
+//                        emailIntent .putExtra(Intent.EXTRA_EMAIL, to);
+//                        // the attachment
+//                        emailIntent .putExtra(Intent.EXTRA_STREAM, path);
+//                        // the mail subject
+//                        emailIntent .putExtra(Intent.EXTRA_SUBJECT, "Database export");
+//                        startActivity(Intent.createChooser(emailIntent , "Send email..."));
 
 
                     }
@@ -278,6 +364,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1001) {
             Uri currFileURI = data.getData();
             String path=currFileURI.getPath();
+            Log.d("MainActivity", data.getData().toString());
+            Log.d("MainActivity", data.toString());
+            Log.d("MainActivity", data.getData().getPath().toString());
             //Toast.makeText(MainActivity.this, path, Toast.LENGTH_SHORT).show();
 
 
