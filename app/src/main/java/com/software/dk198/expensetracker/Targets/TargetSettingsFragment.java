@@ -38,7 +38,7 @@ public class TargetSettingsFragment extends Fragment{
         int target_id = extras.getInt("targetId");
         target = database.getTargetById(target_id);
         targetName = (EditText) view.findViewById(R.id.targetNameEditText);
-        targetName.setHint(target.getName());
+        targetName.setText(target.getName());
         // Setting the currency spinner
         currencySpinner = view.findViewById(R.id.currencySpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_spinner_dropdown_item, MainActivity.currencies);

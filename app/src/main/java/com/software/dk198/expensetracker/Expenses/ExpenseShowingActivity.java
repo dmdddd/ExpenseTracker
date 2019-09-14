@@ -36,7 +36,6 @@ public class ExpenseShowingActivity extends AppCompatActivity {
         expense_id = extras.getInt("expenseId");
         target_id = extras.getInt("targetId");
 
-        System.out.println("CAT ID: "+spending_category_id);
         // Getting data
         target = database.getTargetById(target_id);
         expense = database.getExpenseById(expense_id);

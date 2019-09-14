@@ -6,10 +6,4 @@
     <item
         android:title="@string/backup"
         android:id="@+id/backup"></item>
-    <item
-        android:title="Import"
-        android:id="@+id/import_db"></item>
-    <item
-        android:title="Export"
-        android:id="@+id/export_db"></item>
 </menu>

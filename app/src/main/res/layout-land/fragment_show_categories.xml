@@ -22,6 +22,17 @@
         app:layout_constraintStart_toEndOf="@+id/categoryRecyclerView"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/noCategoriesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/categoryRecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/categoryRecyclerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/categoryRecyclerView" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/categoryRecyclerView"
         android:layout_width="0dp"

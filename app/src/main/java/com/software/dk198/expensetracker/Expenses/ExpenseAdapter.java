@@ -14,6 +14,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.software.dk198.expensetracker.DBHelper;
+import com.software.dk198.expensetracker.MainActivity;
 import com.software.dk198.expensetracker.R;
 import com.software.dk198.expensetracker.SpendingCategories.SpendingCategory;
 import com.software.dk198.expensetracker.Targets.CategoriesShowingFragment;
@@ -201,6 +202,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
                         ShowPaymentsInCategoryActivity.adapter.notifyItemRemoved(index);
                         ShowPaymentsInCategoryActivity.adapter.notifyItemRangeChanged(index, ShowPaymentsInCategoryActivity.expenses.size());
                         ShowPaymentsInCategoryActivity.expensesView.scrollToPosition(0);
+
                         if (ShowPaymentsInCategoryActivity.expenses.size() == 0){
                             ShowPaymentsInCategoryActivity.centerOfScreenTextView.setVisibility(View.VISIBLE);
                         }

@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BackupFileAdapter extends RecyclerView.Adapter<BackupFileAdapter.ViewHolder> {
     private static final String TAG = "TargetAdapter";
@@ -77,12 +78,12 @@ public class BackupFileAdapter extends RecyclerView.Adapter<BackupFileAdapter.Vi
 
             final CharSequence[] dialogList = targetNames.toArray(new CharSequence[targetNames.size()]);
             final android.app.AlertDialog.Builder builderDialog = new android.app.AlertDialog.Builder(context);
-            builderDialog.setTitle("Select Item");
+            builderDialog.setTitle("Select Targets");
             int count = dialogList.length;
             final boolean[] is_checked = new boolean[count];
 
             // Creating multiple selection by using setMutliChoiceItem method
-            builderDialog.setMultiChoiceItems(dialogList, is_checked,
+            AlertDialog.Builder builder = builderDialog.setMultiChoiceItems(dialogList, is_checked,
                     new DialogInterface.OnMultiChoiceClickListener() {
                         public void onClick(DialogInterface dialog,
                                             int whichButton, boolean isChecked) {
@@ -90,7 +91,7 @@ public class BackupFileAdapter extends RecyclerView.Adapter<BackupFileAdapter.Vi
                             is_checked[whichButton] = isChecked;
                         }
                     });
-            final ViewHolder vh = (ViewHolder) view.getTag();
+            final Context onClickContext = this.context;
             builderDialog.setPositiveButton("OK",
                     new DialogInterface.OnClickListener() {
                         @Override
@@ -100,36 +101,25 @@ public class BackupFileAdapter extends RecyclerView.Adapter<BackupFileAdapter.Vi
 
                             for (int i = 0; i < is_checked.length; i++)
                                 if (is_checked[i]) {
-                                    selectedItems.add(targets.get(i).getId());
-                                }
+                                    Target target = targets.get(i);
+                                    // Adding each target
+                                    Target added_tartget = database.insertTarget(target);
+                                    // Getting and adding it's spending categories
+                                    ArrayList<SpendingCategory> categories_for_target = importDB.getDifferentCategoriesOfTarget(target);
+                                    for (SpendingCategory category : categories_for_target) {
+                                        SpendingCategory added_category = database.addSpendingCategoryToTarget_by_id(added_tartget.getId(), category);
 
-                            Log.d(TAG, "Selected targets for import: " + selectedItems);
-
-
-                            for (Integer selected : selectedItems) {
-                                Target target = targets.get(selected);
-                                Log.d(TAG, "Got target: " + target.getName());
-
-                                // Adding each target
-                                Target added_tartget = database.insertTarget(target);
-                                // Getting and adding it's spending categories
-                                ArrayList<SpendingCategory> categories_for_target = importDB.getDifferentCategoriesOfTarget(target);
-                                for (SpendingCategory category : categories_for_target) {
-                                    SpendingCategory added_category = database.addSpendingCategoryToTarget_by_id(added_tartget.getId(), category);
-
-                                    ArrayList<Expense> expenses_of_target_in_category = importDB.getExpensesByTargetIdAndCategoryId(target.getId(), category.getCategory_id());
-                                    for (Expense expense : expenses_of_target_in_category) {
-                                        database.insertExpense(added_tartget.getId(), added_category.getCategory_id(), expense.getAmount(), expense.getDate(), expense.getDetails());
+                                        ArrayList<Expense> expenses_of_target_in_category = importDB.getExpensesByTargetIdAndCategoryId(target.getId(), category.getCategory_id());
+                                        for (Expense expense : expenses_of_target_in_category) {
+                                            database.insertExpense(added_tartget.getId(), added_category.getCategory_id(), expense.getAmount(), expense.getDate(), expense.getDetails());
+                                        }
                                     }
                                 }
-                            }
 
-
-                            // TODO - restart main actovity and show success Toast
-                            ((Activity)vh.context).finish();
-                            Intent intent = new Intent(vh.context, MainActivity.class);
-                            vh.context.startActivity(intent);
-//                            Toast.makeText(viewHolder.context, "Databse updated", Toast.LENGTH_LONG).show();
+                            ((Activity)onClickContext).finish();
+                            Intent intent = new Intent(onClickContext, MainActivity.class);
+                            onClickContext.startActivity(intent);
+                            Toast.makeText(onClickContext, "Databse updated", Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -167,8 +157,10 @@ public class BackupFileAdapter extends RecyclerView.Adapter<BackupFileAdapter.Vi
 
                     // Opening the import database
                     DBHelper import_db = new DBHelper(viewHolder.context, db_file_to_import_from.getName());
+                    import_db.checkpoint();
                     // Importing all the targets
                     targets =  import_db.getAllTargets();
+//                    targets =  import_db.getAllTargets();
                     Log.d("ImportTargetSelection", "Loading selected database got us: " + targets.size() + " targets");
 
                     targetNames.clear();
@@ -178,10 +170,11 @@ public class BackupFileAdapter extends RecyclerView.Adapter<BackupFileAdapter.Vi
                     return import_db;
                 }
                 catch (IOException e) {
+                    Log.d("ImportTargetSelection", "IOException when loading new database");
                     return null;
                 }
             }
-
+            Log.d("ImportTargetSelection", "Not allowed to read(?)");
             return null;
         }
 
@@ -291,9 +284,7 @@ public class BackupFileAdapter extends RecyclerView.Adapter<BackupFileAdapter.Vi
                                         // Importing all the targets
                                         import_db.checkpoint();
                                         ArrayList<Target> import_targets =  import_db.getAllTargets();
-                                        int target_counter = 0;
                                         for (Target target: import_targets) {
-
                                             Log.d(TAG, "Got target: " + target.getName());
 
                                             // Adding each target
@@ -309,7 +300,7 @@ public class BackupFileAdapter extends RecyclerView.Adapter<BackupFileAdapter.Vi
                                                 }
                                             }
                                         }
-                                        Toast.makeText(viewHolder.context, "Databse updated", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(viewHolder.context, "Database updated", Toast.LENGTH_LONG).show();
 
                                         ((Activity)viewHolder.context).finish();
                                         Intent intent = new Intent(viewHolder.context, MainActivity.class);

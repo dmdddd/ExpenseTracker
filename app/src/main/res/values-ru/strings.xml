@@ -9,6 +9,9 @@
     <string name="language">Языки</string>
     <string name="_choose_language">Выберите язык</string>
     <string name="backup">Backup</string>
+    <string name="english">English</string>
+    <string name="russian">Russian</string>
+    <string name="no_subjects">No subjects have been added</string>
     <!--TargetShowingActivity button navigation menu-->
     <string name="title_home">Главная</string>
     <string name="title_piechart">Диаграмма</string>
@@ -27,6 +30,7 @@
     <string name="add_category">Добавить категорию</string>
     <string name="specify_category_name">Укажите название категории</string>
     <string name="no_name_given">Название не указано</string>
+    <string name="no_categories">No categories have been added</string>
     <!--popupMenu-->
     <string name="confirm">Да</string>
     <string name="cancel">Отменить</string>
@@ -77,4 +81,6 @@
     <!--TargetsForImport Activity-->
     <string name="import_all">Import All</string>
     <string name="choosing_targets_from">Choosing targets from</string>
+    <string name="title_activity_import_target_selection">ImportTargetSelection</string>
+    <string name="action_settings">Settings</string>
 </resources>

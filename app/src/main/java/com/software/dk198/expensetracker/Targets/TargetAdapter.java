@@ -217,6 +217,11 @@ public class TargetAdapter extends RecyclerView.Adapter<TargetAdapter.ViewHolder
                         MainActivity.adapter.notifyItemRemoved(index);
                         MainActivity.adapter.notifyItemRangeChanged(index, MainActivity.targets.size());
                         MainActivity.targetsView.scrollToPosition(0);
+
+                        // Show the no subjects to display if the last one has been deleted
+                        if (MainActivity.targets.size() == 0){
+                            MainActivity.noSubjectsTextView.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

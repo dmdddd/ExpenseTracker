@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.software.dk198.expensetracker.DBHelper;
 import com.software.dk198.expensetracker.Expenses.AddExpenseToCategoryActivity;
+import com.software.dk198.expensetracker.MainActivity;
 import com.software.dk198.expensetracker.R;
 import com.software.dk198.expensetracker.Expenses.ShowPaymentsInCategoryActivity;
 import com.software.dk198.expensetracker.Targets.CategoriesShowingFragment;
@@ -186,6 +187,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                         CategoriesShowingFragment.adapter.notifyItemRemoved(index);
                         CategoriesShowingFragment.adapter.notifyItemRangeChanged(index, CategoriesShowingFragment.differentPaymentCategories.size());
                         CategoriesShowingFragment.categoriesView.scrollToPosition(0);
+
+                        // If the last one was deleted, show "no categories" text view
+                        if (CategoriesShowingFragment.differentPaymentCategories.size() == 0){
+                            CategoriesShowingFragment.noCategoriesTextView.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

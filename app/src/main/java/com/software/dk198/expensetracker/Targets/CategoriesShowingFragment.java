@@ -41,6 +41,7 @@ public class CategoriesShowingFragment extends Fragment {
     public static CategoryAdapter adapter;
     public static RecyclerView categoriesView;
     private RecyclerView.LayoutManager categoriesLayoutManager;
+    public static TextView noCategoriesTextView;
 
     @Nullable
     @Override
@@ -54,6 +55,8 @@ public class CategoriesShowingFragment extends Fragment {
 
         context = getActivity();
         database = new DBHelper(context);
+
+        noCategoriesTextView = (TextView) view.findViewById(R.id.noCategoriesTextView);
         Button addCategoryButton = (Button) view.findViewById(R.id.buttonAddSpendingCategory);
         addCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +86,11 @@ public class CategoriesShowingFragment extends Fragment {
                             // Notify TargetShowingActivity's RecyclerView that a change has been made
                             CategoriesShowingFragment.adapter.notifyItemInserted(0); // Notify the adapter that an item was inserted at position 0
                             CategoriesShowingFragment.categoriesView.scrollToPosition(0);
+
+                            // Hide "no categories" massage if there are categories to display
+                            if (differentPaymentCategories.size()>0){
+                                noCategoriesTextView.setVisibility(View.INVISIBLE);
+                            }
                         }
                         else
                             Toast.makeText(context, getString(R.string.no_name_given), Toast.LENGTH_SHORT).show();
@@ -117,6 +125,12 @@ public class CategoriesShowingFragment extends Fragment {
         categoriesView.setAdapter(adapter);
         // Set layout manager to position the items
         categoriesView.setLayoutManager(new LinearLayoutManager(context));
+
+        // Hide "no categories" massage if there are categories to display
+        if (differentPaymentCategories.size()>0){
+            noCategoriesTextView.setVisibility(View.INVISIBLE);
+        }
+
 
         return view;
     }

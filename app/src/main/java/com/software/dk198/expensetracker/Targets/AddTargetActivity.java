@@ -70,6 +70,11 @@ public class AddTargetActivity extends AppCompatActivity {
                         MainActivity.targets.add(0, added_target);
                         MainActivity.adapter.notifyItemInserted(0); // Notify the adapter that an item was inserted at position 0
                         MainActivity.targetsView.scrollToPosition(0);       // Moves the recycler view to the top again, so the newly created item would be seen
+
+                        // Hide "no subjects" message
+                        if (MainActivity.targets.size() > 0){
+                            MainActivity.noSubjectsTextView.setVisibility(View.INVISIBLE);
+                        }
                     }
                     finish();
                 }

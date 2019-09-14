@@ -195,8 +195,6 @@ public class BackupActivity extends AppCompatActivity {
                         File myDirectory = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "ExpenseTracker");
                         myDirectory.mkdirs();
                         File db_file = new File(myDirectory, file_name);
-                        if (db_file.isFile())
-                            Log.d(TAG, "Output(for export) DB file created");
 
                         try {
                             // Creating a new file for the export and writing the current database's data there
@@ -229,80 +227,19 @@ public class BackupActivity extends AppCompatActivity {
                                 myOutput.close();
                                 myInput.close();
 
-
-//                                ///////////////////////////////////////////////////////////////////
-//
-//                                currentDatabasePath = getDatabasePath(DB_NAME).getAbsolutePath()+"-shm";
-//                                currentDB = new File(currentDatabasePath);
-//                                if (currentDB.isFile()){
-//                                    Log.d(TAG, "Current DB file found: " + currentDatabasePath);
-//                                }
-//                                if (currentDB.canRead()){
-//                                    Log.d(TAG, "Current DB file Can READ ");
-//                                }
-//                                // Open your local db as the input stream
-//                                myInput = new FileInputStream(currentDatabasePath);
-//
-//                                db_file = new File(myDirectory, file_name+"-shm");
-//                                db_file.createNewFile();
-//                                // Open the empty db as the output stream
-//                                myOutput = new FileOutputStream(db_file);
-//
-//                                // transfer bytes from the input file to the output file
-//                                buffer = new byte[1024];
-//                                while ((length = myInput.read(buffer)) > 0) {
-//                                    myOutput.write(buffer, 0, length);
-//                                }
-//
-//                                // Close the streams
-//                                myOutput.flush();
-//                                myOutput.close();
-//                                myInput.close();
-//                                ////////////////////////////////////////////////////////////////////////////
-//                                currentDatabasePath = getDatabasePath(DB_NAME).getAbsolutePath() + "-wal";
-//                                currentDB = new File(currentDatabasePath);
-//                                if (currentDB.isFile()){
-//                                    Log.d(TAG, "Current DB file found: " + currentDatabasePath);
-//                                }
-//                                if (currentDB.canRead()){
-//                                    Log.d(TAG, "Current DB file Can READ ");
-//                                }
-//                                // Open your local db as the input stream
-//                                myInput = new FileInputStream(currentDatabasePath);
-//
-//                                db_file = new File(myDirectory, file_name+"-wal");
-//                                db_file.createNewFile();
-//                                // Open the empty db as the output stream
-//                                myOutput = new FileOutputStream(db_file);
-//
-//                                // transfer bytes from the input file to the output file
-//                                buffer = new byte[1024];
-//                                while ((length = myInput.read(buffer)) > 0) {
-//                                    myOutput.write(buffer, 0, length);
-//                                }
-//
-//                                // Close the streams
-//                                myOutput.flush();
-//                                myOutput.close();
-//                                myInput.close();
-//                                ///////////////////////////////////////////////////
-
-
-
-
                                 if (share){
                                     Log.d(TAG, "Sharing over email");
 //                                    Uri path = Uri.fromFile(db_file);
                                     Uri path = getUriForFile(context, db_file);
                                     Intent emailIntent = new Intent(Intent.ACTION_SEND);
                                     // set the type to 'email'
-                                    emailIntent .setType("vnd.android.cursor.dir/email");
+                                    emailIntent.setType("vnd.android.cursor.dir/email");
                                     String to[] = {""};
-                                    emailIntent .putExtra(Intent.EXTRA_EMAIL, to);
+                                    emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
                                     // File attachment
-                                    emailIntent .putExtra(Intent.EXTRA_STREAM, path);
+                                    emailIntent.putExtra(Intent.EXTRA_STREAM, path);
                                     // Email subject
-                                    emailIntent .putExtra(Intent.EXTRA_SUBJECT, "Expense Tracker - Database Backup");
+                                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Expense Tracker - Database Backup");
                                     // Email body
                                     SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                                     String dateString = mdformat.format((Calendar.getInstance()).getTime());
@@ -337,7 +274,7 @@ public class BackupActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             try {
                 String packageId = context.getPackageName();
-                return FileProvider.getUriForFile(context, packageId, file);
+                return FileProvider.getUriForFile(context, packageId, file.getAbsoluteFile());
             } catch (IllegalArgumentException e) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     throw new SecurityException();
@@ -350,5 +287,5 @@ public class BackupActivity extends AppCompatActivity {
         }
     }
 
-}
 
+}
