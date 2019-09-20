@@ -76,7 +76,7 @@
     <string name="export_data">Экспортировать</string>
     <string name="export_share_data">Экспортировать и делиться</string>
     <string name="export_msg">Файл резервной копии будет сохранен в /Documents/ExpenseTracker/</string>
-
+    <string name="choose_file_name">Выберите имя файла</string>
 
     <!--TargetsForImport Activity-->
     <string name="import_all">Импортировать все</string>
@@ -85,4 +85,9 @@
     <string name="action_settings">Настройки</string>
 
     <string name="choose_backup_file">Выберите файл резервной копии</string>
+
+    <!--BackupFileAdapter-->
+    <string name="remove_this_backup">Вы уверены, что хотите удалить этот файл резервной копии?</string>
+    <string name="import_this_backup">Вы уверены, что хотите импортировать этот файл резервной копии?</string>
+    <string name="select_target">Выберите темму</string>
 </resources>

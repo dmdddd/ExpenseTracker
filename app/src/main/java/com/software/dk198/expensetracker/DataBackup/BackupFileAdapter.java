@@ -239,7 +239,7 @@ public class BackupFileAdapter extends RecyclerView.Adapter<BackupFileAdapter.Vi
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(viewHolder.removeBtn.getContext());
-                builder.setMessage("Are you sure you want to remove this backup file?").setPositiveButton("Yes", dialogClickListener)
+                builder.setMessage(viewHolder.context.getString(R.string.remove_this_backup)).setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
             }
         });
@@ -319,7 +319,7 @@ public class BackupFileAdapter extends RecyclerView.Adapter<BackupFileAdapter.Vi
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(viewHolder.removeBtn.getContext());
-                builder.setMessage("Are you sure you want to import this backup file?").setPositiveButton("Yes", dialogClickListener)
+                builder.setMessage(viewHolder.context.getString(R.string.import_this_backup)).setPositiveButton("Yes", dialogClickListener)
                         .setNegativeButton("No", dialogClickListener).show();
             }
         });

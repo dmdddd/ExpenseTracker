@@ -75,6 +75,7 @@
     <string name="export_data">Export</string>
     <string name="export_share_data">Export and share</string>
     <string name="export_msg">The backup file will be saved at /Documents/ExpenseTracker/</string>
+    <string name="choose_file_name">Choose file name</string>
 
     <!--TargetsForImport Activity-->
     <string name="import_all">Import All</string>
@@ -84,5 +85,8 @@
 
     <string name="choose_backup_file">Choose a backup file</string>
 
-
+    <!--BackupFileAdapter-->
+    <string name="remove_this_backup">Are you sure you want to remove this backup file?</string>
+    <string name="import_this_backup">Are you sure you want to import this backup file?</string>
+    <string name="select_target">Select Targets</string>
 </resources>

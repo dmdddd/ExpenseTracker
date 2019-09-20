@@ -158,32 +158,32 @@ public class MainActivity extends AppCompatActivity {
         SpendingCategory category;
         //Bills:
         target = database.insertTarget("Bills\uD83D\uDCB8", "€");
-        category = database.addSpendingCategoryToTarget(target, "Electricity");
+        category = database.addSpendingCategoryToTarget(target, "Electricity⚡");
         Expense expense = database.insertExpense(target.getId(), category.getCategory_id(), 150, "", "First electricity bill");
         update_data(expense, category.getCategory_id(), target.getId());
-        category = database.addSpendingCategoryToTarget(target, "Gas");
+        category = database.addSpendingCategoryToTarget(target, "Gas⛽");
         expense = database.insertExpense(target.getId(), category.getCategory_id(), 120, "", "");
         update_data(expense, category.getCategory_id(), target.getId());
         expense = database.insertExpense(target.getId(), category.getCategory_id(), 74, "", "");
         update_data(expense, category.getCategory_id(), target.getId());
-        category = database.addSpendingCategoryToTarget(target, "Internet");
+        category = database.addSpendingCategoryToTarget(target, "Internet\uD83C\uDF10");
         expense = database.insertExpense(target.getId(), category.getCategory_id(), 50, "", "");
         update_data(expense, category.getCategory_id(), target.getId());
-        category = database.addSpendingCategoryToTarget(target, "Water");
+        category = database.addSpendingCategoryToTarget(target, "Water\uD83D\uDCA7");
         expense = database.insertExpense(target.getId(), category.getCategory_id(), 50, "", "");
         update_data(expense, category.getCategory_id(), target.getId());
         //Trip to Canada:
         target = database.insertTarget("Trip to Canada\uD83C\uDF41", "$");
-        category = database.addSpendingCategoryToTarget(target, "Shopping");
+        category = database.addSpendingCategoryToTarget(target, "Shopping\uD83D\uDECD");
         expense = database.insertExpense(target.getId(), category.getCategory_id(), 300, "", "2x Shirt\n1x Sweater");
         update_data(expense, category.getCategory_id(), target.getId());
-        category = database.addSpendingCategoryToTarget(target, "Accommodation");
+        category = database.addSpendingCategoryToTarget(target, "Accommodation\uD83D\uDECF");
         expense = database.insertExpense(target.getId(), category.getCategory_id(), 40, "", "First night's stay");
         update_data(expense, category.getCategory_id(), target.getId());
         expense = database.insertExpense(target.getId(), category.getCategory_id(), 43, "", "Second night");
         update_data(expense, category.getCategory_id(), target.getId());
-        category = database.addSpendingCategoryToTarget(target, "Winter Gear");
-        category = database.addSpendingCategoryToTarget(target, "Food");
+        category = database.addSpendingCategoryToTarget(target, "Winter Gear\uD83C\uDFBF");
+        category = database.addSpendingCategoryToTarget(target, "Food\uD83C\uDF55");
         expense = database.insertExpense(target.getId(), category.getCategory_id(),70, "", "Grocery Shopping");
         update_data(expense, category.getCategory_id(), target.getId());
     }
