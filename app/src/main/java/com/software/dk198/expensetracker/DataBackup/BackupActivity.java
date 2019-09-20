@@ -19,6 +19,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.software.dk198.expensetracker.BuildConfig;
 import com.software.dk198.expensetracker.DBHelper;
 import com.software.dk198.expensetracker.R;
 import java.io.File;
@@ -88,6 +90,7 @@ public class BackupActivity extends AppCompatActivity {
         });
 
         exportShareBtn = (Button) findViewById(R.id.exportShareBtn);
+        exportShareBtn.setVisibility(View.INVISIBLE);
         exportShareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -274,7 +277,10 @@ public class BackupActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             try {
                 String packageId = context.getPackageName();
-                return FileProvider.getUriForFile(context, packageId, file.getAbsoluteFile());
+                Log.d(TAG, "packageId: " + packageId);
+                Log.d(TAG, "packageId: " + BuildConfig.APPLICATION_ID+".fileprovider");
+//                return FileProvider.getUriForFile(context, packageId, file);
+                return FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID+".fileprovider", file);
             } catch (IllegalArgumentException e) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     throw new SecurityException();

@@ -11,7 +11,7 @@
     <string name="backup">Backup</string>
     <string name="english">English</string>
     <string name="russian">Russian</string>
-    <string name="no_subjects">No subjects have been added</string>
+    <string name="no_subjects">Ни одной темы не было добавленно</string>
     <!--TargetShowingActivity button navigation menu-->
     <string name="title_home">Главная</string>
     <string name="title_piechart">Диаграмма</string>
@@ -30,7 +30,7 @@
     <string name="add_category">Добавить категорию</string>
     <string name="specify_category_name">Укажите название категории</string>
     <string name="no_name_given">Название не указано</string>
-    <string name="no_categories">No categories have been added</string>
+    <string name="no_categories">Никакие категории не были добавлены</string>
     <!--popupMenu-->
     <string name="confirm">Да</string>
     <string name="cancel">Отменить</string>
@@ -70,17 +70,19 @@
     <!--EditExpenseActivity-->
     <string name="nothing_to_update">Ничего обновлять</string>
     <!--Backup Activity-->
-    <string name="import_data">Import</string>
-    <string name="import_msg">Importing is done from /Documents/ExpenseTracker/</string>
-    <string name="import_note">Existing data will not be overwritten, imported data will be added to the existing one</string>
-    <string name="export_data">Export</string>
-    <string name="export_share_data">Export and share</string>
-    <string name="export_msg">The backup file will be saved at /Documents/ExpenseTracker/</string>
+    <string name="import_data">Импортировать</string>
+    <string name="import_msg">Импорт сделан из /Documents/ExpenseTracker/</string>
+    <string name="import_note">Существующие данные не будут перезаписаны, импортированные данные будут добавлены к существующим</string>
+    <string name="export_data">Экспортировать</string>
+    <string name="export_share_data">Экспортировать и делиться</string>
+    <string name="export_msg">Файл резервной копии будет сохранен в /Documents/ExpenseTracker/</string>
 
 
     <!--TargetsForImport Activity-->
-    <string name="import_all">Import All</string>
-    <string name="choosing_targets_from">Choosing targets from</string>
+    <string name="import_all">Импортировать все</string>
+    <string name="choosing_targets_from">Выбор темму из</string>
     <string name="title_activity_import_target_selection">ImportTargetSelection</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="choose_backup_file">Выберите файл резервной копии</string>
 </resources>

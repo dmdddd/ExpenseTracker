@@ -82,5 +82,7 @@
     <string name="title_activity_import_target_selection">ImportTargetSelection</string>
     <string name="action_settings">Settings</string>
 
+    <string name="choose_backup_file">Choose a backup file</string>
+
 
 </resources>
